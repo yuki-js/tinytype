@@ -1,5 +1,5 @@
 import { TPrimitive } from "./TPrimitive";
-
-export function Args<T extends TPrimitive[]>(...args: [...T]) {
+export type TArg = TPrimitive[];
+export function Args<T extends TPrimitive[]>(...args: [...T]): TArg {
   return args;
 }

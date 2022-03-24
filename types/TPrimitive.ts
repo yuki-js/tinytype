@@ -20,6 +20,6 @@ type GetType<T> = T extends TPrimitive
     : PrimitiveTypes[T["type"]]
   : unknown;
 
-export type Static<T extends TPrimitive[]> = {
+export type ToType<T extends TPrimitive[]> = {
   [Index in keyof T]: GetType<T[Index]>;
 };

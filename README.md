@@ -10,7 +10,7 @@ export const args = Args(Nullable(String("Argument 1")), Int("Argument 2"));
 //   { name: 'Argument 2', type: 'int', nullable: false }
 // ]
 
-type StaticArgs = Static<typeof args>;
+type StaticArgs = ToType<typeof args>;
 
 // StaticArgs = [string | null, number]
 ```
