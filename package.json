@@ -1,5 +1,5 @@
 {
-  "name": "tinytype",
+  "name": "@yuki-js/tinytype",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -10,6 +10,10 @@
   },
   "keywords": [],
   "author": "yuki-js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yuki-js/tinytype.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
