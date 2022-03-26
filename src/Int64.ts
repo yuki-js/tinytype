@@ -1,9 +1,9 @@
 import { baseOptions } from "./baseOptions";
 import { TPrimitive } from "./TPrimitive";
 
-type TInt<N extends string> = TPrimitive<N> &
+type TInt64<N extends string> = TPrimitive<N> &
   Options & {
-    type: "int";
+    type: "int64";
   };
 
 interface Options extends baseOptions {
@@ -11,10 +11,10 @@ interface Options extends baseOptions {
   min?: number;
   max?: number;
 }
-export function Int<N extends string>(name: N, options?: Options): TInt<N> {
+export function Int64<N extends string>(name: N, options?: Options): TInt64<N> {
   return {
     name,
-    type: "int",
+    type: "int64",
     ...options,
   };
 }

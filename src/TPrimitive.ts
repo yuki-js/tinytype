@@ -2,9 +2,10 @@ import { TNullable } from "./Nullable";
 
 export type PrimitiveTypes = {
   string: string;
-  int: number;
+  int32: number;
   bytes: Uint8Array;
   boolean: boolean;
+  int64: BigInt;
 };
 
 type PrimitiveTypesUnion = keyof PrimitiveTypes;

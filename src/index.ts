@@ -1,6 +1,6 @@
 export { Args, TArg } from "./Args";
 export { Bytes } from "./Bytes";
-export { Int } from "./Int";
+export { Int32 } from "./Int32";
 export { Nullable } from "./Nullable";
 export { String } from "./String";
 export { Boolean } from "./Boolean";
