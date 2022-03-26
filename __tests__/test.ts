@@ -7,7 +7,7 @@ test("basic usage", () => {
       description: "This is the string field.",
       regex: /^[a-zA-Z0-9]*$/,
     }),
-    T.Int("The Int field")
+    T.Int32("The Int32 field")
   );
 
   expect(t).toEqual([
@@ -18,8 +18,8 @@ test("basic usage", () => {
       regex: /^[a-zA-Z0-9]*$/,
     },
     {
-      name: "The Int field",
-      type: "int",
+      name: "The Int32 field",
+      type: "int32",
     },
   ]);
   assertType<TypeEq<T.ToType<typeof t>, [string, number]>>();
@@ -48,7 +48,7 @@ test("two arguments", () => {
     T.String("The String field", {
       description: "This is the string field.",
     }),
-    T.Nullable(T.Int("The Int field"))
+    T.Nullable(T.Int64("The Int64 field"))
   );
   expect(t).toEqual([
     {
@@ -58,12 +58,12 @@ test("two arguments", () => {
       description: "This is the string field.",
     },
     {
-      name: "The Int field",
-      type: "int",
+      name: "The Int64 field",
+      type: "int64",
       nullable: true,
     },
   ]);
-  assertType<TypeEq<T.ToType<typeof t>, [string, number | null]>>();
+  assertType<TypeEq<T.ToType<typeof t>, [string, BigInt | null]>>();
 });
 test("two bytes", () => {
   const t = T.Args(
@@ -94,7 +94,7 @@ test("statically check", () => {
     T.String("The String field", {
       description: "This is the string field.",
     }),
-    T.Nullable(T.Int("The Int field")),
+    T.Nullable(T.Int32("The Int32 field")),
     T.Bytes("Bytes field")
   );
   assertType<
@@ -106,8 +106,8 @@ test("statically check", () => {
           type: "string";
         },
         {
-          name: "The Int field";
-          type: "int";
+          name: "The Int32 field";
+          type: "int32";
           nullable: true;
         },
         {
@@ -124,8 +124,8 @@ test("statically check", () => {
       description: "This is the string field.",
     },
     {
-      name: "The Int field",
-      type: "int",
+      name: "The Int32 field",
+      type: "int32",
       nullable: true,
     },
     {
@@ -188,19 +188,19 @@ test("object type is translatable as expected 2", () => {
     return remoteFunc;
   }
   const remoteProc = createFunc(
-    T.Args(T.String("The String field"), T.Nullable(T.Int("Foo"))),
+    T.Args(T.String("The String field"), T.Nullable(T.Int64("Foo"))),
     T.Args(T.Boolean("Boolean will returned")),
     (arg0, arg1) => {
       assertType<TypeEq<typeof arg0, string>>();
-      assertType<TypeEq<typeof arg1, number | null>>();
-      const isValid = arg0.length > 0 && arg1 != null && arg1 > 1;
+      assertType<TypeEq<typeof arg1, BigInt | null>>();
+      const isValid = arg0.length > 0 && arg1 != null && arg1 > 1n;
       const returning = [isValid] as const;
       assertType<TypeEq<typeof returning, readonly [boolean]>>();
       return returning;
     }
   );
 
-  assertType<TypeEq<Parameters<typeof remoteProc>, [string, number | null]>>();
+  assertType<TypeEq<Parameters<typeof remoteProc>, [string, BigInt | null]>>();
   assertType<TypeEq<ReturnType<typeof remoteProc>, readonly [boolean]>>();
 
   assertType<
@@ -213,7 +213,7 @@ test("object type is translatable as expected 2", () => {
         },
         {
           name: "Foo";
-          type: "int";
+          type: "int64";
           nullable: true;
         }
       ]
@@ -226,7 +226,7 @@ test("object type is translatable as expected 2", () => {
     },
     {
       name: "Foo",
-      type: "int",
+      type: "int64",
       nullable: true,
     },
   ]);
