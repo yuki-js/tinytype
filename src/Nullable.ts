@@ -1,6 +1,6 @@
 import { TPrimitive } from "./TPrimitive";
 
-export type TNullable<T> = T & {
+export type TNullable<T extends TPrimitive> = T & {
   nullable: true;
 };
 

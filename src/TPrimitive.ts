@@ -3,19 +3,19 @@ import { TNullable } from "./Nullable";
 export type PrimitiveTypes = {
   string: string;
   int: number;
-  bytes: Buffer;
+  bytes: Uint8Array;
+  boolean: boolean;
 };
 
 type PrimitiveTypesUnion = keyof PrimitiveTypes;
 
-export type TPrimitive = {
+export interface TPrimitive<N extends string = string> {
   type: PrimitiveTypesUnion;
-  name: string;
-  nullable: boolean;
-};
+  name: N;
+}
 
 type GetType<T> = T extends TPrimitive
-  ? T extends TNullable<unknown>
+  ? T extends TNullable<infer T>
     ? PrimitiveTypes[T["type"]] | null
     : PrimitiveTypes[T["type"]]
   : unknown;
