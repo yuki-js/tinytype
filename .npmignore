@@ -1,3 +1,4 @@
 **/*.ts
 !dist/**/*
 **/.*
+jest.config.js

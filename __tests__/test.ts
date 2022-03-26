@@ -1,10 +1,5 @@
 import * as T from "../src";
-import {
-  assertType,
-  assertTypeExtends,
-  TypeEq,
-  TypeExtends,
-} from "./utils/typeMatcher";
+import { assertType, TypeEq, TypeExtends } from "./utils/typeMatcher";
 
 test("basic usage", () => {
   const t = T.Args(
