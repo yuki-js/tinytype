@@ -8,7 +8,7 @@
     "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
-    "publish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "keywords": [],
   "author": "yuki-js",
