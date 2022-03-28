@@ -63,7 +63,7 @@ test("two arguments", () => {
       nullable: true,
     },
   ]);
-  assertType<TypeEq<T.ToType<typeof t>, [string, BigInt | null]>>();
+  assertType<TypeEq<T.ToType<typeof t>, [string, bigint | null]>>();
 });
 test("two bytes", () => {
   const t = T.Args(
@@ -192,7 +192,7 @@ test("object type is translatable as expected 2", () => {
     T.Args(T.Boolean("Boolean will returned")),
     (arg0, arg1) => {
       assertType<TypeEq<typeof arg0, string>>();
-      assertType<TypeEq<typeof arg1, BigInt | null>>();
+      assertType<TypeEq<typeof arg1, bigint | null>>();
       const isValid = arg0.length > 0 && arg1 != null && arg1 > 1n;
       const returning = [isValid] as const;
       assertType<TypeEq<typeof returning, readonly [boolean]>>();
@@ -200,7 +200,7 @@ test("object type is translatable as expected 2", () => {
     }
   );
 
-  assertType<TypeEq<Parameters<typeof remoteProc>, [string, BigInt | null]>>();
+  assertType<TypeEq<Parameters<typeof remoteProc>, [string, bigint | null]>>();
   assertType<TypeEq<ReturnType<typeof remoteProc>, readonly [boolean]>>();
 
   assertType<
@@ -230,4 +230,28 @@ test("object type is translatable as expected 2", () => {
       nullable: true,
     },
   ]);
+});
+
+test("static enum type", () => {
+  const t = T.Args(T.Enum("The Enum field", ["a", "b"] as const));
+  expect(t).toEqual([
+    {
+      name: "The Enum field",
+      type: "enum",
+      variants: ["a", "b"],
+    },
+  ]);
+  assertType<TypeEq<T.ToType<typeof t>, ["a" | "b"]>>();
+});
+
+test("dynamic enum type", () => {
+  const t = T.Args(T.Enum("The Enum field", ["a", "b"]));
+  expect(t).toEqual([
+    {
+      name: "The Enum field",
+      type: "enum",
+      variants: ["a", "b"],
+    },
+  ]);
+  assertType<TypeEq<T.ToType<typeof t>, [string]>>();
 });
