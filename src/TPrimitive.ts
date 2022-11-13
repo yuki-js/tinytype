@@ -15,6 +15,8 @@ type PrimitiveTypesUnion = keyof PrimitiveTypes;
 export interface TPrimitive<N extends string = string> {
   type: PrimitiveTypesUnion;
   name: N;
+  readonly?: boolean;
+  nullable?: boolean;
 }
 
 type GetType<T> = T extends TPrimitive ? UnwrapNullableType<T> : unknown;
