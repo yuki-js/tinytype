@@ -255,3 +255,83 @@ test("dynamic enum type", () => {
   ]);
   assertType<TypeEq<T.ToType<typeof t>, [string]>>();
 });
+
+test("can define data format hint for string", () => {
+  const t = T.Args(
+    T.String("The String field", {
+      regex: /^foo$/,
+      default: "DefaultValue is here",
+    })
+  );
+  expect(t).toEqual([
+    {
+      name: "The String field",
+      type: "string",
+      regex: /^foo$/,
+      default: "DefaultValue is here",
+    },
+  ]);
+  assertType<TypeEq<T.ToType<typeof t>, [string]>>();
+});
+test("can define data format hint for int", () => {
+  const t = T.Args(
+    T.Int64("The Int64 field", {
+      min: 1n,
+      max: 100n,
+      description: "This is the int64 field.",
+    })
+  );
+  expect(t).toEqual([
+    {
+      name: "The Int64 field",
+      type: "int64",
+      min: 1n,
+      max: 100n,
+      description: "This is the int64 field.",
+    },
+  ]);
+  assertType<TypeEq<T.ToType<typeof t>, [bigint]>>();
+});
+
+test("can recognize readonly hint", () => {
+  const t = T.Args(
+    T.String("The String field", {
+      regex: /^foo$/,
+      default: "DefaultValue is here",
+    })
+  );
+  expect(t).toEqual([
+    {
+      name: "The String field",
+      type: "string",
+      regex: /^foo$/,
+      default: "DefaultValue is here",
+    },
+  ]);
+  assertType<TypeEq<T.ToType<typeof t>, [string]>>();
+});
+
+test("can annotate readonly hint", () => {
+  const t = T.Args(
+    T.Readonly(T.String("You cannot modify here")),
+    T.Readonly(
+      T.Boolean("You cannot remove check here", {
+        default: true,
+      })
+    )
+  );
+  expect(t).toEqual([
+    {
+      name: "You cannot modify here",
+      type: "string",
+      readonly: true,
+    },
+    {
+      name: "You cannot remove check here",
+      type: "boolean",
+      default: true,
+      readonly: true,
+    },
+  ]);
+  assertType<TypeEq<T.ToType<typeof t>, [string, boolean]>>();
+});
