@@ -7,3 +7,4 @@ export { String } from "./String";
 export { Boolean } from "./Boolean";
 export { ToType } from "./TPrimitive";
 export { Enum } from "./Enum";
+export { Readonly } from "./Readonly";
