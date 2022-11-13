@@ -7,9 +7,9 @@ type TInt64<N extends string> = TPrimitive<N> &
   };
 
 interface Options extends baseOptions {
-  default?: number;
-  min?: number;
-  max?: number;
+  default?: bigint;
+  min?: bigint;
+  max?: bigint;
 }
 export function Int64<N extends string>(name: N, options?: Options): TInt64<N> {
   return {
